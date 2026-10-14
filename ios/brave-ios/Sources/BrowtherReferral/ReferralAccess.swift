@@ -107,6 +107,30 @@ extension ReferralStatus {
     subscription.active && subscription.willRenew
   }
 
+  /// ⭐ **Personne ne sollicite qui a payé** : abonné en paix OU soutien
+  /// ponctuel dont les mois courent (`support.active`, § 12.43). À la fin de
+  /// ses mois, il redevient sollicitable, avec le rappel « merci pour ton
+  /// soutien » (`subscription_cancelled`, Karim, 2026-10-14).
+  public var isPayerAtPeace: Bool {
+    support?.active == true || isSubscriberAtPeace
+  }
+
+  /// Les trois achats « une seule fois » se proposent-ils ? ⛔ Pas à un abonné
+  /// actif (on ne lui remontre pas les tarifs, § 12.19), ⛔ pas à un accès à vie
+  /// (payer ici ne lui donnerait rien — Karim, 2026-10-14).
+  public var offersSupportOnce: Bool {
+    !subscription.active && !access.lifetime
+  }
+
+  /// Le soutien ponctuel qu'on vient de payer est-il arrivé au service ?
+  /// ⭐ `support.lastAt` postérieur au départ (une minute de marge : l'horloge
+  /// de l'iPhone n'est pas celle du service) — ⛔ pas `support.active`, déjà
+  /// vrai si un soutien précédent court encore.
+  public func supportArrived(since start: Date) -> Bool {
+    guard let lastAt = ReferralDate.parse(support?.lastAt) else { return false }
+    return lastAt >= start.addingTimeInterval(-60)
+  }
+
   /// 🔴 **Statut effectif = max(accès payé LOCAL, couverture du service)**
   /// (§ 7.4). L'achat App Store est connu de l'appareil avant le service : le
   /// webhook arrive quelques secondes après — et JAMAIS pour un abonnement

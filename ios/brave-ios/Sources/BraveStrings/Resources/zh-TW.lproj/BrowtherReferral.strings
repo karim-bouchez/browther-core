@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "謝謝你！Browther 的所有附加功能都已解鎖。";
 "billing.renews" = "你的訂閱將於 {date} 自動續訂，因沙安拉。";
 "billing.ends" = "你的訂閱將於 {date} 結束，因沙安拉。";
+"billing.once.separator" = "或者只支持一次，無需訂閱";
+"billing.once.cta" = "我要支持 · 一次性 {price}";
+"billing.once.legalApple" = "透過你的 Apple 帳號一次性付款，不會續訂。";
+"billing.coveredUntil" = "感謝你的支持！你的附加功能將持續到 {date}，因沙安拉。不會自動續訂。";
 "thanks.title" = "感謝你的支持！";
 "thanks.bodyActive" = "所有附加功能都已解鎖。憑安拉的恩典，然後多虧了你，dev&din 工作室才能繼續提供免費的 App。";
 "thanks.bodyPending" = "你的訂閱正在設定中：附加功能馬上就會解鎖。";
+"thanks.bodyOnce" = "你的附加功能將持續到 {date}，因沙安拉。憑安拉的恩典，然後多虧了你，dev&din 工作室才能繼續提供免費的 App。";
+"thanks.bodyOncePending" = "你的支持正在生效：附加功能的月份馬上就到。";
+"thanks.bodyOnceLate" = "你的付款已成功，謝謝！確認有時需要幾分鐘：一旦確認，你的月份就會加上，因沙安拉。";
 "home.title" = "推薦計畫";
 "home.listHead" = "我的邀請";
 "home.asReferee" = "親友的推薦碼";
@@ -284,6 +291,8 @@
 "invitations.rowInProgress.other" = "你的推薦碼已被使用。再將 Browther 設為預設瀏覽器 {count} 天即可生效。";
 "invitations.rowInProgressUnknown.other" = "你的推薦碼已被使用。你的親友將 Browther 保持為預設瀏覽器 {count} 天後，邀請即生效。";
 "invitations.milestone.other" = "+{count} 個月獎勵 · 已達 {at} 個邀請階梯";
+"billing.once.months.other" = "{count} 個月";
+"billing.once.note.other" = "只付一次：在你現有的時長之後增加 {count} 個月，不會自動續訂。";
 "home.progress.other" = "**{count} 個有效邀請** = {months} 個月。再 {left} 個，可獲得 +{bonus} 個月獎勵。";
 "home.progressToLife.other" = "**{count} 個有效邀請** = {months} 個月。再 {left} 個，即可終身使用。";
 "home.progressLife.other" = "**{count} 個有效邀請**：Browther 已終身 100% 解鎖，因沙安拉。";

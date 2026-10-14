@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "Tak! Alle Browthers ekstra funktioner er låst op.";
 "billing.renews" = "Dit abonnement fornyes automatisk den {date}, in sha Allah.";
 "billing.ends" = "Dit abonnement slutter den {date}, in sha Allah.";
+"billing.once.separator" = "eller bare én gang, uden abonnement";
+"billing.once.cta" = "Jeg støtter · {price} én gang";
+"billing.once.legalApple" = "Engangsbetaling via din Apple-konto, uden fornyelse.";
+"billing.coveredUntil" = "Tak for din støtte! Dine måneder med ekstra funktioner løber indtil den {date}, in sha Allah. Intet fornyes.";
 "thanks.title" = "Tak for din støtte!";
 "thanks.bodyActive" = "Alle ekstra funktioner er låst op. Ved Allahs nåde, og dernæst takket være dig, kan studiet dev&din fortsat tilbyde gratis apps.";
 "thanks.bodyPending" = "Dit abonnement bliver oprettet: de ekstra funktioner låses op om et øjeblik.";
+"thanks.bodyOnce" = "Dine måneder med ekstra funktioner løber indtil den {date}, in sha Allah. Ved Allahs nåde, og dernæst takket være dig, kan studiet dev&din fortsat tilbyde gratis apps.";
+"thanks.bodyOncePending" = "Din støtte bliver oprettet: dine måneder med ekstra funktioner kommer om et øjeblik.";
+"thanks.bodyOnceLate" = "Din betaling er gået igennem, tak! Bekræftelsen tager nogle gange et par minutter: dine måneder lægges til, så snart den kommer, in sha Allah.";
 "home.title" = "Henvisninger";
 "home.listHead" = "Mine invitationer";
 "home.asReferee" = "Kode fra en, du kender";
@@ -315,6 +322,10 @@
 "invitations.rowInProgressUnknown.other" = "Din kode er blevet brugt. Invitationen bekræftes, når personen har beholdt Browther som standardbrowser i {count} dage.";
 "invitations.milestone.one" = "+{count} bonusmåned · trin {at} nået";
 "invitations.milestone.other" = "+{count} bonusmåneder · trin {at} nået";
+"billing.once.months.one" = "{count} måned";
+"billing.once.months.other" = "{count} måneder";
+"billing.once.note.one" = "Én enkelt betaling: {count} måned lægges oven i det, du allerede har, og intet fornyes.";
+"billing.once.note.other" = "Én enkelt betaling: {count} måneder lægges oven i det, du allerede har, og intet fornyes.";
 "home.progress.one" = "**{count} bekræftet invitation** = {months} måneder. Endnu {left} for +{bonus} bonusmåneder.";
 "home.progress.other" = "**{count} bekræftede invitationer** = {months} måneder. Endnu {left} for +{bonus} bonusmåneder.";
 "home.progressToLife.one" = "**{count} bekræftet invitation** = {months} måneder. Endnu {left} for adgang for livet.";

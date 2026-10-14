@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "Bedankt! Alle extra functies van Browther zijn ontgrendeld.";
 "billing.renews" = "Je abonnement wordt automatisch verlengd op {date}, in sha Allah.";
 "billing.ends" = "Je abonnement stopt op {date}, in sha Allah.";
+"billing.once.separator" = "of maar één keer, zonder abonnement";
+"billing.once.cta" = "Ik steun · {price} eenmalig";
+"billing.once.legalApple" = "Eenmalige betaling via je Apple-account, zonder verlenging.";
+"billing.coveredUntil" = "Bedankt voor je steun! Je maanden met extra functies lopen tot {date}, in sha Allah. Er wordt niets verlengd.";
 "thanks.title" = "Bedankt voor je steun!";
 "thanks.bodyActive" = "Alle extra functies zijn ontgrendeld. Door de genade van Allah, en daarna dankzij jou, kan de studio dev&din gratis apps blijven aanbieden.";
 "thanks.bodyPending" = "Je abonnement wordt ingesteld: de extra functies worden zo ontgrendeld.";
+"thanks.bodyOnce" = "Je maanden met extra functies lopen tot {date}, in sha Allah. Door de genade van Allah, en daarna dankzij jou, kan de studio dev&din gratis apps blijven aanbieden.";
+"thanks.bodyOncePending" = "Je steun wordt ingesteld: je maanden met extra functies komen zo.";
+"thanks.bodyOnceLate" = "Je betaling is gelukt, bedankt! De bevestiging duurt soms een paar minuten: je maanden worden toegevoegd zodra die binnen is, in sha Allah.";
 "home.title" = "Verwijzingen";
 "home.listHead" = "Mijn uitnodigingen";
 "home.asReferee" = "De code van iemand die je kent";
@@ -315,6 +322,10 @@
 "invitations.rowInProgressUnknown.other" = "Je code is gebruikt. De uitnodiging is bevestigd zodra de persoon Browther {count} dagen als standaardbrowser heeft gehouden.";
 "invitations.milestone.one" = "+{count} bonusmaand · mijlpaal {at} bereikt";
 "invitations.milestone.other" = "+{count} bonusmaanden · mijlpaal {at} bereikt";
+"billing.once.months.one" = "{count} maand";
+"billing.once.months.other" = "{count} maanden";
+"billing.once.note.one" = "Eén enkele betaling: {count} maand komt erbij na wat je al hebt, en er wordt niets verlengd.";
+"billing.once.note.other" = "Eén enkele betaling: {count} maanden komen erbij na wat je al hebt, en er wordt niets verlengd.";
 "home.progress.one" = "**{count} bevestigde uitnodiging** = {months} maanden. Nog {left} voor +{bonus} bonusmaanden.";
 "home.progress.other" = "**{count} bevestigde uitnodigingen** = {months} maanden. Nog {left} voor +{bonus} bonusmaanden.";
 "home.progressToLife.one" = "**{count} bevestigde uitnodiging** = {months} maanden. Nog {left} voor levenslange toegang.";

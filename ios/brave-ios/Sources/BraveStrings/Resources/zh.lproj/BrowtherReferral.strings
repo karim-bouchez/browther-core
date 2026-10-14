@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "谢谢你！Browther 的所有附加功能均已解锁。";
 "billing.renews" = "你的订阅将于 {date} 自动续订，因沙安拉。";
 "billing.ends" = "你的订阅将于 {date} 结束，因沙安拉。";
+"billing.once.separator" = "或者只支持一次，无需订阅";
+"billing.once.cta" = "我要支持 · 一次性 {price}";
+"billing.once.legalApple" = "通过你的 Apple 账户一次性付款，不会续订。";
+"billing.coveredUntil" = "感谢你的支持！你的附加功能将持续到 {date}，因沙安拉。不会自动续订。";
 "thanks.title" = "感谢你的支持！";
 "thanks.bodyActive" = "所有附加功能均已解锁。凭安拉的恩典，然后多亏了你，dev&din 工作室才能继续提供免费应用。";
 "thanks.bodyPending" = "你的订阅正在设置中：附加功能马上就会解锁。";
+"thanks.bodyOnce" = "你的附加功能将持续到 {date}，因沙安拉。凭安拉的恩典，然后多亏了你，dev&din 工作室才能继续提供免费应用。";
+"thanks.bodyOncePending" = "你的支持正在生效：附加功能的月份马上就到。";
+"thanks.bodyOnceLate" = "你的付款已成功，谢谢！确认有时需要几分钟：一旦确认，你的月份就会加上，因沙安拉。";
 "home.title" = "推荐计划";
 "home.listHead" = "我的邀请";
 "home.asReferee" = "亲友的推荐码";
@@ -284,6 +291,8 @@
 "invitations.rowInProgress.other" = "你的推荐码已被使用。再将 Browther 设为默认浏览器 {count} 天即可生效。";
 "invitations.rowInProgressUnknown.other" = "你的推荐码已被使用。你的亲友将 Browther 保持为默认浏览器 {count} 天后，邀请即生效。";
 "invitations.milestone.other" = "+{count} 个月奖励 · 已达 {at} 个邀请阶梯";
+"billing.once.months.other" = "{count} 个月";
+"billing.once.note.other" = "只付一次：在你现有的时长之后增加 {count} 个月，不会自动续订。";
 "home.progress.other" = "**{count} 个有效邀请** = {months} 个月。再 {left} 个，可获得 +{bonus} 个月奖励。";
 "home.progressToLife.other" = "**{count} 个有效邀请** = {months} 个月。再 {left} 个，即可终身使用。";
 "home.progressLife.other" = "**{count} 个有效邀请**：Browther 已终身 100% 解锁，因沙安拉。";

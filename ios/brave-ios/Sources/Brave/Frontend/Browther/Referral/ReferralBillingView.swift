@@ -25,6 +25,12 @@ import UIKit
 /// Confidentialité, qui MARCHENT, dans l'écran d'achat lui-même. ⚠️ La
 /// résiliation et les factures passent par l'App Store : ⛔ on ne réimplémente
 /// rien, et on ne remontre pas ses tarifs à un abonné (§ 12.19).
+///
+/// ⭐ **« ou une seule fois, sans abonnement »** (le soutien ponctuel, § 12.43,
+/// maquette du 2026-10-12) : trois achats non renouvelables sous les deux
+/// formules — 1, 2 ou 6 mois. ⛔ Ni pour un abonné actif ni pour un accès à vie
+/// (`offersSupportOnce`). ⛔ Aucun lien vers le site (Apple 3.1.1, 3.1.3).
+/// ⛔ Le mot « don » nulle part.
 struct ReferralBillingBody: View {
   /// Aperçu de recette : le bouton a son vrai visage même sans offre — c'est de
   /// là que se prend la capture de vérification d'App Store Connect.
@@ -65,6 +71,14 @@ struct ReferralBillingBody: View {
     }
   }
 
+  /// Les trois achats se montrent-ils ? Dans un binaire du store, seulement si
+  /// l'App Store les SERT (⛔ jamais trois tuiles qui ne paient pas) ; en build
+  /// de dev et en aperçu, toujours — avec les prix de repli, pour la recette.
+  static func showsSupportOnce(_ controller: BrowtherReferralController, preview: Bool) -> Bool {
+    guard controller.known?.offersSupportOnce == true else { return false }
+    return preview || !controller.supportProducts.isEmpty || AppConstants.buildChannel != .release
+  }
+
   private var offer: some View {
     let prices = controller.prices
     return VStack(spacing: 16) {
@@ -73,6 +87,17 @@ struct ReferralBillingBody: View {
         ReferralFlowBody(text: Strings.BrowtherReferral.billingBody)
       }
       ReferralFeatureList(extras: .included, extrasOnly: true)
+      // ⭐ Un soutien ponctuel qui court : « couvert jusqu'au … », ⛔ sans
+      // « Gérer mon abonnement » (il n'y a rien à résilier). Les tarifs restent.
+      if let support = controller.known?.support, support.active,
+        let until = ReferralDate.parse(support.until)
+      {
+        ReferralFlowBody(
+          text: Strings.BrowtherReferral.billingCoveredUntil(
+            BrowtherReferralController.formatDate(until, withYear: true)
+          )
+        )
+      }
       VStack(spacing: 10) {
         plan(
           .yearly,
@@ -92,7 +117,14 @@ struct ReferralBillingBody: View {
           sub: Strings.BrowtherReferral.billingMonthSub
         )
       }
-      Text(Strings.BrowtherReferral.billingLegal)
+      if Self.showsSupportOnce(controller, preview: preview) {
+        supportOnce
+      }
+      Text(
+        controller.supportChoice != nil
+          ? Strings.BrowtherReferral.billingOnceLegalApple
+          : Strings.BrowtherReferral.billingLegal
+      )
         .font(.footnote)
         .foregroundStyle(.secondary)
         .multilineTextAlignment(.center)
@@ -138,6 +170,69 @@ struct ReferralBillingBody: View {
     }
   }
 
+  /// « ou une seule fois, sans abonnement », puis les trois achats côte à côte
+  /// (1 · 2 · 6 mois, prix du store), et ce que l'achat choisi donne.
+  private var supportOnce: some View {
+    let prices = controller.supportPrices
+    return VStack(spacing: 10) {
+      HStack(spacing: 10) {
+        Rectangle().fill(ReferralPalette.line).frame(height: 1)
+        Text(Strings.BrowtherReferral.billingOnceSeparator)
+          .font(.footnote)
+          .foregroundStyle(.secondary)
+          .fixedSize()
+        Rectangle().fill(ReferralPalette.line).frame(height: 1)
+      }
+      .padding(.top, 2)
+      HStack(spacing: 8) {
+        ForEach(ReferralSupportOnce.allCases, id: \.self) { item in
+          supportTile(item, price: prices.price(item))
+        }
+      }
+      if let choice = controller.supportChoice {
+        Text(Strings.BrowtherReferral.billingOnceNote(choice.months))
+          .font(.footnote)
+          .foregroundStyle(.secondary)
+          .multilineTextAlignment(.center)
+          .fixedSize(horizontal: false, vertical: true)
+      }
+    }
+  }
+
+  private func supportTile(_ item: ReferralSupportOnce, price: String) -> some View {
+    let selected = controller.supportChoice == item
+    return Button {
+      UISelectionFeedbackGenerator().selectionChanged()
+      controller.supportChoice = item
+    } label: {
+      VStack(spacing: 4) {
+        Text(Strings.BrowtherReferral.billingOnceMonths(item.months))
+          .font(.subheadline.weight(.semibold))
+          .lineLimit(1)
+          .minimumScaleFactor(0.8)
+        Text(price)
+          .font(.footnote.monospacedDigit())
+          .foregroundStyle(.secondary)
+          .lineLimit(1)
+          .minimumScaleFactor(0.8)
+      }
+      .frame(maxWidth: .infinity)
+      .padding(.vertical, 12)
+      .padding(.horizontal, 6)
+      .background {
+        RoundedRectangle(cornerRadius: 14, style: .continuous)
+          .fill(selected ? ReferralPalette.greenSurface : ReferralPalette.panel)
+      }
+      .overlay {
+        RoundedRectangle(cornerRadius: 14, style: .continuous)
+          .strokeBorder(selected ? ReferralPalette.green : ReferralPalette.line, lineWidth: selected ? 1.5 : 1)
+      }
+      .contentShape(Rectangle())
+    }
+    .buttonStyle(.plain)
+    .accessibilityAddTraits(selected ? [.isSelected, .isButton] : .isButton)
+  }
+
   /// Une formule. Sélectionnée = la surface verte du parrainage + un bouton radio plein.
   private func plan(
     _ period: BillingPeriod,
@@ -147,9 +242,10 @@ struct ReferralBillingBody: View {
     struck: String?,
     sub: String
   ) -> some View {
-    let selected = controller.period == period
+    let selected = controller.supportChoice == nil && controller.period == period
     return Button {
       UISelectionFeedbackGenerator().selectionChanged()
+      controller.supportChoice = nil
       controller.period = period
     } label: {
       HStack(alignment: .center, spacing: 12) {
@@ -247,12 +343,17 @@ struct ReferralBillingCTA: View {
       }
     } else {
       let prices = controller.prices
-      let label = controller.period == .yearly
-        ? Strings.BrowtherReferral.billingCtaYear(prices.yearly)
-        : Strings.BrowtherReferral.billingCtaMonth(prices.monthly)
-      let canBuy = preview || controller.packages[controller.period] != nil
+      // ⭐ Un achat « une seule fois » choisi : « Je soutiens · 9,99 € une fois ».
+      // ⚠️ Choisi puis devenu invisible (abonné entre-temps) : la formule reprend.
+      let once = ReferralBillingBody.showsSupportOnce(controller, preview: preview) ? controller.supportChoice : nil
+      let label = once.map { Strings.BrowtherReferral.billingOnceCta(controller.supportPrices.price($0)) }
+        ?? (controller.period == .yearly
+          ? Strings.BrowtherReferral.billingCtaYear(prices.yearly)
+          : Strings.BrowtherReferral.billingCtaMonth(prices.monthly))
+      let canBuy = preview
+        || (once.map { controller.supportProducts[$0] != nil } ?? (controller.packages[controller.period] != nil))
       Button {
-        buy()
+        buy(once: once)
       } label: {
         ZStack {
           Text(label)
@@ -300,7 +401,7 @@ struct ReferralBillingCTA: View {
     return "Build de dev : l'App Store ne sert pas les formules ici (bundle .BrowserBeta). L'achat se recette en TestFlight."
   }
 
-  private func buy() {
+  private func buy(once: ReferralSupportOnce?) {
     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     // ⛔ Pas de bouton muet : un aperçu n'achète rien, et il le dit (recette
     // Karim, 2026-09-22 : « quand je clique sur "je soutiens" ça ne fait rien »).
@@ -315,7 +416,12 @@ struct ReferralBillingCTA: View {
     }
     buying = true
     Task { @MainActor in
-      let outcome = await controller.buy(controller.period)
+      let outcome: BrowtherReferralController.BuyOutcome
+      if let once {
+        outcome = await controller.buySupport(once)
+      } else {
+        outcome = await controller.buy(controller.period)
+      }
       buying = false
       switch outcome {
       case .purchased:

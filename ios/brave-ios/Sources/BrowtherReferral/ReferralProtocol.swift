@@ -112,6 +112,23 @@ public struct ReferralStatus: Codable, Equatable, Sendable {
     public var until: String?
   }
 
+  /// ⭐ **Le soutien ponctuel** (`docs/PARRAINAGE.md` § 12.43) : un paiement
+  /// UNIQUE qui a crédité des mois. ⛔ Ce n'est pas un abonnement — rien n'en
+  /// passe dans `subscription`. `active` tant que la couverture court après lui ;
+  /// `until` = « couvert jusqu'au … » (`nil` si inactif ou à vie) ; `lastAt` =
+  /// le dernier soutien non remboursé.
+  public struct Support: Codable, Equatable, Sendable {
+    public var active: Bool
+    public var until: String?
+    public var lastAt: String?
+
+    public init(active: Bool, until: String? = nil, lastAt: String? = nil) {
+      self.active = active
+      self.until = until
+      self.lastAt = lastAt
+    }
+  }
+
   /// Le mois de l'annonce (écran 0) — `nil` = pas encore démarré.
   public struct Trial: Codable, Equatable, Sendable {
     public var startedAt: String?
@@ -190,6 +207,8 @@ public struct ReferralStatus: Codable, Equatable, Sendable {
   public var serverTime: String?
   public var access: Access
   public var subscription: Subscription
+  /// ⚠️ Optionnel : absent d'un service antérieur au 2026-10-14.
+  public var support: Support?
   public var trial: Trial
   public var referral: Referral
   public var invitations: Invitations
@@ -279,6 +298,9 @@ public struct RecetteState: Codable, Equatable, Sendable {
   public var installed: Int
   public var subscription: Subscription
   public var subscriptionDaysLeft: Int
+  /// ⭐ Un soutien ponctuel de N mois (§ 12.43), posé comme un vrai par le
+  /// service : ajouté au bout de `daysLeft` (0 = aucun).
+  public var support: Int
 
   public init(
     trialStarted: Bool,
@@ -287,7 +309,8 @@ public struct RecetteState: Codable, Equatable, Sendable {
     validated: Int = 0,
     installed: Int = 0,
     subscription: Subscription = .none,
-    subscriptionDaysLeft: Int = 30
+    subscriptionDaysLeft: Int = 30,
+    support: Int = 0
   ) {
     self.trialStarted = trialStarted
     self.daysLeft = daysLeft
@@ -296,6 +319,7 @@ public struct RecetteState: Codable, Equatable, Sendable {
     self.installed = installed
     self.subscription = subscription
     self.subscriptionDaysLeft = subscriptionDaysLeft
+    self.support = support
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -313,6 +337,7 @@ public struct RecetteState: Codable, Equatable, Sendable {
     try container.encode(installed, forKey: .installed)
     try container.encode(subscription, forKey: .subscription)
     try container.encode(subscriptionDaysLeft, forKey: .subscriptionDaysLeft)
+    try container.encode(support, forKey: .support)
   }
 }
 

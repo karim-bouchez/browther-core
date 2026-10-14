@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "Tack! Alla Browthers extrafunktioner är upplåsta.";
 "billing.renews" = "Ditt abonnemang förnyas automatiskt den {date}, in sha Allah.";
 "billing.ends" = "Ditt abonnemang avslutas den {date}, in sha Allah.";
+"billing.once.separator" = "eller bara en gång, utan abonnemang";
+"billing.once.cta" = "Jag stöder · {price} en gång";
+"billing.once.legalApple" = "Engångsbetalning via ditt Apple-konto, utan förnyelse.";
+"billing.coveredUntil" = "Tack för ditt stöd! Dina månader med extrafunktioner gäller fram till {date}, in sha Allah. Inget förnyas.";
 "thanks.title" = "Tack för ditt stöd!";
 "thanks.bodyActive" = "Alla extrafunktioner är upplåsta. Genom Allahs nåd, och sedan tack vare dig, kan studion dev&din fortsätta erbjuda gratis appar.";
 "thanks.bodyPending" = "Ditt abonnemang håller på att aktiveras: extrafunktionerna låses upp om ett ögonblick.";
+"thanks.bodyOnce" = "Dina månader med extrafunktioner gäller fram till {date}, in sha Allah. Genom Allahs nåd, och sedan tack vare dig, kan studion dev&din fortsätta erbjuda gratis appar.";
+"thanks.bodyOncePending" = "Ditt stöd håller på att aktiveras: dina månader med extrafunktioner kommer om ett ögonblick.";
+"thanks.bodyOnceLate" = "Din betalning har gått igenom, tack! Bekräftelsen tar ibland några minuter: dina månader läggs till så snart den kommer, in sha Allah.";
 "home.title" = "Värvning";
 "home.listHead" = "Mina inbjudningar";
 "home.asReferee" = "En kod från någon du känner";
@@ -315,6 +322,10 @@
 "invitations.rowInProgressUnknown.other" = "Din kod har använts. Inbjudan bekräftas när personen har haft Browther som standardwebbläsare i {count} dagar.";
 "invitations.milestone.one" = "+{count} bonusmånad · nivå {at} nådd";
 "invitations.milestone.other" = "+{count} bonusmånader · nivå {at} nådd";
+"billing.once.months.one" = "{count} månad";
+"billing.once.months.other" = "{count} månader";
+"billing.once.note.one" = "En enda betalning: {count} månad läggs till efter det du redan har, och inget förnyas.";
+"billing.once.note.other" = "En enda betalning: {count} månader läggs till efter det du redan har, och inget förnyas.";
 "home.progress.one" = "**{count} bekräftad inbjudan** = {months} månader. {left} till för +{bonus} bonusmånader.";
 "home.progress.other" = "**{count} bekräftade inbjudningar** = {months} månader. {left} till för +{bonus} bonusmånader.";
 "home.progressToLife.one" = "**{count} bekräftad inbjudan** = {months} månader. {left} till för tillgång för livet.";

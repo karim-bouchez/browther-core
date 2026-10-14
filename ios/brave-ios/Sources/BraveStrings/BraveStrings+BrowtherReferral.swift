@@ -790,6 +790,42 @@ extension Strings {
       fill(t("billing.ends", "Your subscription ends on {date}, in sha Allah."), ["date": date])
     }
 
+    // MARK: 7 — « une seule fois » (le soutien ponctuel, § 12.43)
+    // ⛔ Jamais le mot « don » : c'est la contrepartie (les mois) qui en fait une vente.
+
+    /// « 6 mois » — le titre d'un des trois achats non renouvelables.
+    public static func billingOnceMonths(_ count: Int) -> String {
+      plural("billing.once.months", count, one: "{count} month", other: "{count} months")
+    }
+    public static var billingOnceSeparator: String {
+      t("billing.once.separator", "or just once, no subscription")
+    }
+    public static func billingOnceCta(_ price: String) -> String {
+      fill(t("billing.once.cta", "I support · {price} once"), ["price": price])
+    }
+    public static func billingOnceNote(_ count: Int) -> String {
+      plural(
+        "billing.once.note",
+        count,
+        one: "A single payment: {count} month added after what you already have, and nothing renews.",
+        other: "A single payment: {count} months added after what you already have, and nothing renews."
+      )
+    }
+    /// Remplace `billingLegal` (renouvellement automatique) quand un achat unique est choisi.
+    public static var billingOnceLegalApple: String {
+      t("billing.once.legalApple", "One-time payment through your Apple account, no renewal.")
+    }
+    /// Au-dessus des formules, quand un soutien ponctuel court — ⛔ sans « Gérer mon abonnement ».
+    public static func billingCoveredUntil(_ date: String) -> String {
+      fill(
+        t(
+          "billing.coveredUntil",
+          "Thank you for your support! Your months of additional features run until {date}, in sha Allah. Nothing renews."
+        ),
+        ["date": date]
+      )
+    }
+
     // MARK: 7 bis — « Merci » (§ 12.17)
 
     public static var thanksTitle: String { t("thanks.title", "Thank you for your support!") }
@@ -802,6 +838,25 @@ extension Strings {
     }
     public static var thanksBodyPending: String {
       t("thanks.bodyPending", "Your subscription is being set up: the additional features will unlock in a moment.")
+    }
+    /// 🔴 « Grâce à Allah, puis à toi » — ⛔ jamais « grâce à toi » seul (§ 6).
+    public static func thanksBodyOnce(_ date: String) -> String {
+      fill(
+        t(
+          "thanks.bodyOnce",
+          "Your months of additional features run until {date}, in sha Allah. By Allah's grace, then thanks to you, the dev&din studio can keep offering free apps."
+        ),
+        ["date": date]
+      )
+    }
+    public static var thanksBodyOncePending: String {
+      t("thanks.bodyOncePending", "Your support is being set up: your months of additional features will arrive in a moment.")
+    }
+    public static var thanksBodyOnceLate: String {
+      t(
+        "thanks.bodyOnceLate",
+        "Your payment went through, thank you! Confirmation sometimes takes a few minutes: your months will be added as soon as it arrives, in sha Allah."
+      )
     }
 
     // MARK: 6 — l'écran Parrainage

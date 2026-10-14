@@ -68,6 +68,22 @@ final class BrowtherReferralController: ObservableObject {
   @Published private(set) var billingProblem: String?
   /// La formule choisie : ⭐ l'annuel par défaut (§ 3, écran 7).
   @Published var period: BillingPeriod = .yearly
+  /// ⭐ Les trois achats « une seule fois » (le soutien ponctuel, § 12.43), par
+  /// nombre de mois — vides dans un build de dev, comme les formules.
+  @Published private(set) var supportProducts: [ReferralSupportOnce: RevenueCatProduct] = [:]
+  /// Un achat « une seule fois » choisi À LA PLACE d'une formule (`nil` = `period`).
+  @Published var supportChoice: ReferralSupportOnce?
+  /// ⭐ « Merci » d'un soutien ponctuel : il attend CE soutien (`support.lastAt`
+  /// postérieur au départ) et dit la date de fin — `nil` après un abonnement.
+  @Published private(set) var supportThanks: SupportThanks?
+
+  struct SupportThanks: Equatable {
+    var startedAt: Date
+    /// On relit encore le statut (le webhook suit l'achat de quelques secondes).
+    var waiting: Bool
+    /// 🧪 Aperçu de recette seulement : la date de fin à montrer, sans achat.
+    var previewUntil: String?
+  }
 
   private var client: ReferralClient?
   /// L'identité de CET appareil (ou celle de recette) — le sujet sans compte,
@@ -123,6 +139,7 @@ final class BrowtherReferralController: ObservableObject {
 
   /// Les prix à afficher : ceux du store, sinon le repli.
   var prices: ReferralStorePrices { ReferralStorePrices(packages: packages) }
+  var supportPrices: ReferralSupportPrices { ReferralSupportPrices(products: supportProducts) }
 
   var access: AccessState {
     guard enabled, subjectRef != nil else { return .unknown }
@@ -237,6 +254,7 @@ final class BrowtherReferralController: ObservableObject {
     await purchases.configure(subjectRef: subject)
     entitlement = ReferralPurchases.entitlement(of: await purchases.customerInfo())
     packages = await purchases.packages()
+    supportProducts = await purchases.supportProducts()
     billingProblem = purchases.lastProblem
     purchases.watch { [weak self] info in
       self?.entitlement = ReferralPurchases.entitlement(of: info)
@@ -247,6 +265,7 @@ final class BrowtherReferralController: ObservableObject {
   func reloadPackages() async {
     guard storeBilling else { return }
     packages = await ReferralPurchases.shared.packages()
+    supportProducts = await ReferralPurchases.shared.supportProducts()
     billingProblem = ReferralPurchases.shared.lastProblem
   }
 
@@ -264,6 +283,7 @@ final class BrowtherReferralController: ObservableObject {
     case .purchased(let info):
       track("billing_checkout_completed", ["period": period.rawValue])
       entitlement = ReferralPurchases.entitlement(of: info)
+      supportThanks = nil
       closeCircuit()
       Task { await refresh() }
       return .purchased
@@ -279,6 +299,48 @@ final class BrowtherReferralController: ObservableObject {
       track("billing_checkout_failed", ["period": period.rawValue, "reason": "error"])
       return .failed
     }
+  }
+
+  /// ⭐ **Une seule fois** (le soutien ponctuel, § 12.43) : un achat non
+  /// renouvelable. Il n'ouvre RIEN en local — c'est le service qui crédite les
+  /// mois (webhook RevenueCat) ; « Merci » attend donc CE soutien.
+  /// 📊 `billing_checkout_*` avec `period: "once"` — ⛔ aucun évènement nouveau,
+  /// ⛔ jamais le montant ni l'identifiant d'achat.
+  func buySupport(_ item: ReferralSupportOnce) async -> BuyOutcome {
+    guard let product = supportProducts[item] else { return .failed }
+    let startedAt = Date()
+    track("billing_checkout_started", ["period": "once"])
+    switch await ReferralPurchases.shared.purchaseSupport(product) {
+    case .purchased:
+      track("billing_checkout_completed", ["period": "once"])
+      closeCircuit()
+      supportThanks = SupportThanks(startedAt: startedAt, waiting: true)
+      Task { await waitForSupport(since: startedAt) }
+      return .purchased
+    case .cancelled:
+      track("billing_checkout_failed", ["period": "once", "reason": "cancelled"])
+      return .cancelled
+    case .failed:
+      track("billing_checkout_failed", ["period": "once", "reason": "error"])
+      return .failed
+    }
+  }
+
+  /// Le webhook RevenueCat → service suit l'achat de quelques secondes : on
+  /// relit le statut 15 × 2 s, puis « Merci » dit que ça arrive.
+  private func waitForSupport(since start: Date) async {
+    for _ in 0..<15 {
+      await refresh()
+      if status?.supportArrived(since: start) == true { break }
+      try? await Task.sleep(nanoseconds: 2_000_000_000)
+    }
+    if supportThanks?.startedAt == start { supportThanks?.waiting = false }
+  }
+
+  /// 🧪 Recette : l'aperçu de « Merci » après un soutien ponctuel (n'écrit
+  /// rien) — `nil` le remet sur l'abonnement.
+  func previewSupportThanks(until: String?) {
+    supportThanks = until.map { SupportThanks(startedAt: Date(), waiting: false, previewUntil: $0) }
   }
 
   /// « Restaurer mes achats » — obligation Apple (§ 8). `true` = un abonnement
@@ -1353,12 +1415,14 @@ final class BrowtherReferralController: ObservableObject {
         "Invitations : \(known.milestones.validated) validées · \(known.invitations.installed) en cours",
         "Filleul : \(known.referredBy.map { "\($0.status.rawValue) \(Int($0.progress?.current ?? 0))/\(Int($0.progress?.target ?? 0))" } ?? "non")",
         "Rappel : \(known.reminder.case?.rawValue ?? "—")",
+        "Soutien ponctuel : \(known.support.map { "\($0.active ? "actif jusqu'au \($0.until ?? "—")" : "non") · dernier \($0.lastAt ?? "—")" } ?? "—")",
       ]
     }
     lines += [
       "Annonce vue : \(prompt.announced == true ? "oui" : "non") · jours de navigation : \(prompt.days ?? 0)",
       "Sawtunaa finalisé : \(ReferralLaunch.extrasReleased ? "oui" : "non (pas d'annonce)")",
       "Formules du store : \(packages.isEmpty ? (billingProblem ?? "aucune, sans raison connue") : "\(packages.count) reçue(s)")",
+      "Une seule fois : \(supportProducts.isEmpty ? "aucun achat servi (build de dev, ou achats pas encore approuvés)" : supportProducts.keys.sorted().map(\.productID).joined(separator: ", "))",
       "Mérite maintenant : \(isMeritMoment(now: now) ? "oui" : "non") · jour libre : \(Self.canSolicitToday(now: now) ? "oui" : "non")",
       "Jours « par défaut » : prouvés \(days.proofDays.suffix(5).joined(separator: ", "))",
       "   navigués \(days.browsingDays.suffix(5).joined(separator: ", "))",

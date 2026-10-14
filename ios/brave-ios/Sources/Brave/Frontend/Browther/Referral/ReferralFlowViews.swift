@@ -588,15 +588,27 @@ struct ReferralThanksView: View {
   @Environment(\.referralNote) private var note
   @State private var celebratedAt: Date?
 
+  /// ⭐ Après un soutien ponctuel (§ 12.43) : la date de fin de SES mois, une
+  /// fois CE soutien arrivé au service — ⛔ pas `support.active`, déjà vrai si
+  /// un soutien précédent court encore.
+  private var bodyText: String {
+    guard let once = controller.supportThanks else {
+      return controller.known?.subscription.active == true
+        ? Strings.BrowtherReferral.thanksBodyActive
+        : Strings.BrowtherReferral.thanksBodyPending
+    }
+    let arrived = controller.known?.supportArrived(since: once.startedAt) == true
+    if let until = ReferralDate.parse(once.previewUntil ?? (arrived ? controller.known?.support?.until : nil)) {
+      return Strings.BrowtherReferral.thanksBodyOnce(BrowtherReferralController.formatDate(until, withYear: true))
+    }
+    return once.waiting ? Strings.BrowtherReferral.thanksBodyOncePending : Strings.BrowtherReferral.thanksBodyOnceLate
+  }
+
   var body: some View {
     ReferralFlowShell(onClose: onClose) {
       ReferralRoundIcon(systemName: "heart.fill", tone: .green)
       ReferralFlowTitle(text: Strings.BrowtherReferral.thanksTitle)
-      ReferralFlowBody(
-        text: controller.known?.subscription.active == true
-          ? Strings.BrowtherReferral.thanksBodyActive
-          : Strings.BrowtherReferral.thanksBodyPending
-      )
+      ReferralFlowBody(text: bodyText)
       ReferralFeatureList(extras: .included, extrasOnly: true)
     } footer: {
       // ⭐ Le compte se PROPOSE ici, après le paiement (§ 7.1, § 12.19) : un

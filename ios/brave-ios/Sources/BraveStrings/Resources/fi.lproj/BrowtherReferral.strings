@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "Kiitos! Kaikki Browtherin lisäominaisuudet on avattu.";
 "billing.renews" = "Tilauksesi uusiutuu automaattisesti {date}, in sha Allah.";
 "billing.ends" = "Tilauksesi päättyy {date}, in sha Allah.";
+"billing.once.separator" = "tai vain kerran, ilman tilausta";
+"billing.once.cta" = "Tuen · {price} kerran";
+"billing.once.legalApple" = "Kertamaksu Apple-tilisi kautta, ei uusiutumista.";
+"billing.coveredUntil" = "Kiitos tuestasi! Lisäominaisuuskuukautesi jatkuvat {date} asti, in sha Allah. Mikään ei uusiudu.";
 "thanks.title" = "Kiitos tuestasi!";
 "thanks.bodyActive" = "Kaikki lisäominaisuudet on avattu. Allahin armosta, ja sitten sinun ansiostasi, studio dev&din voi jatkossakin tarjota ilmaisia sovelluksia.";
 "thanks.bodyPending" = "Tilaustasi otetaan käyttöön: lisäominaisuudet avautuvat hetken kuluttua.";
+"thanks.bodyOnce" = "Lisäominaisuuskuukautesi jatkuvat {date} asti, in sha Allah. Allahin armosta, ja sitten sinun ansiostasi, studio dev&din voi jatkossakin tarjota ilmaisia sovelluksia.";
+"thanks.bodyOncePending" = "Tukeasi otetaan käyttöön: lisäominaisuuskuukautesi tulevat hetken kuluttua.";
+"thanks.bodyOnceLate" = "Maksusi meni läpi, kiitos! Vahvistus kestää joskus muutaman minuutin: kuukautesi lisätään heti, kun se saapuu, in sha Allah.";
 "home.title" = "Suosittelu";
 "home.listHead" = "Kutsuni";
 "home.asReferee" = "Tutulta saatu koodi";
@@ -315,6 +322,10 @@
 "invitations.rowInProgressUnknown.other" = "Koodiasi on käytetty. Kutsu vahvistetaan, kun henkilö on pitänyt Browtherin oletusselaimenaan {count} päivän ajan.";
 "invitations.milestone.one" = "+{count} bonuskuukausi · taso {at} saavutettu";
 "invitations.milestone.other" = "+{count} bonuskuukautta · taso {at} saavutettu";
+"billing.once.months.one" = "{count} kuukausi";
+"billing.once.months.other" = "{count} kuukautta";
+"billing.once.note.one" = "Yksi ainoa maksu: {count} kuukausi lisätään sen perään, mitä sinulla jo on, eikä mikään uusiudu.";
+"billing.once.note.other" = "Yksi ainoa maksu: {count} kuukautta lisätään sen perään, mitä sinulla jo on, eikä mikään uusiudu.";
 "home.progress.one" = "**{count} vahvistettu kutsu** = {months} kuukautta. Vielä {left}, niin saat +{bonus} bonuskuukautta.";
 "home.progress.other" = "**{count} vahvistettua kutsua** = {months} kuukautta. Vielä {left}, niin saat +{bonus} bonuskuukautta.";
 "home.progressToLife.one" = "**{count} vahvistettu kutsu** = {months} kuukautta. Vielä {left}, niin saat elinikäisen käyttöoikeuden.";

@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "ありがとうございます！Browther のすべての追加機能が解除されています。";
 "billing.renews" = "サブスクリプションは {date} に自動更新されます、インシャーアッラー。";
 "billing.ends" = "サブスクリプションは {date} に終了します、インシャーアッラー。";
+"billing.once.separator" = "または 1 回だけ、サブスクリプションなし";
+"billing.once.cta" = "支援する · 1 回 {price}";
+"billing.once.legalApple" = "Apple アカウントでの 1 回限りのお支払い。更新はありません。";
+"billing.coveredUntil" = "ご支援ありがとうございます！追加機能は {date} までお使いいただけます、インシャーアッラー。自動更新はありません。";
 "thanks.title" = "ご支援ありがとうございます！";
 "thanks.bodyActive" = "すべての追加機能が解除されました。アッラーのお恵みにより、そしてあなたのおかげで、dev&din スタジオは無料のアプリを提供し続けられます。";
 "thanks.bodyPending" = "サブスクリプションを準備中です。まもなく追加機能が解除されます。";
+"thanks.bodyOnce" = "追加機能は {date} までお使いいただけます、インシャーアッラー。アッラーのお恵みにより、そしてあなたのおかげで、dev&din スタジオは無料のアプリを提供し続けられます。";
+"thanks.bodyOncePending" = "ご支援を反映しています。まもなく追加機能の月数が届きます。";
+"thanks.bodyOnceLate" = "お支払いが完了しました。ありがとうございます！確認に数分かかることがあります。届きしだい月数が追加されます、インシャーアッラー。";
 "home.title" = "紹介プログラム";
 "home.listHead" = "自分の招待";
 "home.asReferee" = "身近な人からのコード";
@@ -284,6 +291,8 @@
 "invitations.rowInProgress.other" = "あなたのコードが使われました。Browther をデフォルトのブラウザにしてあと {count} 日で確定します。";
 "invitations.rowInProgressUnknown.other" = "あなたのコードが使われました。相手が Browther を {count} 日間デフォルトのブラウザにしておくと、招待が確定します。";
 "invitations.milestone.other" = "+{count} か月のボーナス · 招待 {at} 件のステップ達成";
+"billing.once.months.other" = "{count} か月";
+"billing.once.note.other" = "1 回のお支払いで、今の期間のあとに {count} か月が追加されます。自動更新はありません。";
 "home.progress.other" = "**確定した招待 {count} 件** = {months} か月。あと {left} 件で +{bonus} か月のボーナス。";
 "home.progressToLife.other" = "**確定した招待 {count} 件** = {months} か月。あと {left} 件で永久アクセス。";
 "home.progressLife.other" = "**確定した招待 {count} 件**：Browther が永久に 100% 解除されました、インシャーアッラー。";

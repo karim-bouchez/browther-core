@@ -131,7 +131,10 @@ struct ReferralRecetteView: View {
 
       Section {
         ForEach(PreviewItem.all) { item in
-          Button(item.label) { preview?(item.screen) }
+          Button(item.label) {
+            controller.previewSupportThanks(until: item.onceUntil)
+            preview?(item.screen)
+          }
         }
         ForEach(SharePromptPreview.all) { item in
           Button(item.label) { previewSharePrompt?(item.profile, item.tab, item.headline) }
@@ -196,7 +199,7 @@ struct ReferralRecetteView: View {
   }
 
   enum Scenario: String, CaseIterable, Identifiable {
-    case fresh, running, j10, j3, j0, subscribed, cancelled, lifetime
+    case fresh, running, j10, j3, j0, subscribed, cancelled, supportOnce, lifetime
     var id: String { rawValue }
 
     var label: String {
@@ -208,6 +211,7 @@ struct ReferralRecetteView: View {
       case .j0: return "J0 (tombée hier)"
       case .subscribed: return "Abonné"
       case .cancelled: return "Résilié (3 j)"
+      case .supportOnce: return "Soutien ponctuel (6 mois)"
       case .lifetime: return "À vie"
       }
     }
@@ -234,6 +238,10 @@ struct ReferralRecetteView: View {
           trialStarted: true, daysLeft: nil, validated: validated, installed: installed,
           subscription: .cancelled, subscriptionDaysLeft: 3
         )
+      case .supportOnce:
+        // ⭐ § 12.43 : 6 mois ajoutés au bout des 5 jours restants — « couvert
+        // jusqu'au … » sur l'écran 7, aucune sollicitation tant qu'ils courent.
+        return RecetteState(trialStarted: true, daysLeft: 5, validated: validated, installed: installed, support: 6)
       case .lifetime:
         return RecetteState(trialStarted: true, daysLeft: nil, lifetime: true, validated: validated, installed: installed)
       }
@@ -270,6 +278,8 @@ struct ReferralRecetteView: View {
   struct PreviewItem: Identifiable {
     let label: String
     let screen: ReferralScreen
+    /// 🧪 « Merci » d'un soutien ponctuel : la date de fin à montrer.
+    var onceUntil: String?
     var id: String { label }
 
     static let all: [PreviewItem] = [
@@ -285,6 +295,11 @@ struct ReferralRecetteView: View {
       // bouton a son vrai visage même sans offre (build de dev).
       .init(label: "7 — payer (capture App Store)", screen: .billing),
       .init(label: "7 bis — merci", screen: .thanks),
+      .init(
+        label: "7 bis — merci · une seule fois",
+        screen: .thanks,
+        onceUntil: ReferralDate.string(Date().addingTimeInterval(6 * 30 * 86_400))
+      ),
       .init(label: "8 — invitation validée", screen: .validated(months: 2, until: "2026-12-01T10:00:00.000Z", lifetime: false)),
       .init(label: "8 — à vie", screen: .validated(months: 1, until: nil, lifetime: true)),
       .init(label: "8 bis — merci (filleul)", screen: .refereeDone),

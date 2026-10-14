@@ -110,3 +110,35 @@ public enum ReferralBilling {
     }
   }
 }
+
+/// ⭐ **Le soutien ponctuel sur iOS** (`docs/PARRAINAGE.md` § 12.43) : trois
+/// achats intégrés **non renouvelables**, sous les deux abonnements —
+/// 4,99 € (1 mois) · 9,99 € (2 mois) · 29,99 € (6 mois).
+///
+/// 🔴 **Le nombre de mois se lit dans l'IDENTIFIANT** (`browther_once_6m`) : c'est
+/// lui que le service lit dans le webhook RevenueCat — un autre nom ne crédite
+/// rien (`referral/docs/API.md` § « Sur iOS »). ⛔ Jamais dans le prix (Apple le
+/// convertit par pays).
+/// 🔴 **Rattachés à AUCUN entitlement ni offering RevenueCat** : RevenueCat
+/// donne à un achat non renouvelable un accès SANS date de fin — il ouvrirait
+/// l'app à vie en local. On les lit par identifiant ; l'accès vient des mois
+/// crédités par le service.
+/// ⛔ Aucun lien vers le site (Apple 3.1.1, 3.1.3). ⛔ Le mot « don » nulle part.
+public enum ReferralSupportOnce: Int, CaseIterable, Sendable, Comparable {
+  case oneMonth = 1
+  case twoMonths = 2
+  case sixMonths = 6
+
+  public var months: Int { rawValue }
+  public var productID: String { "browther_once_\(rawValue)m" }
+  /// Le prix de repli (le store donne le vrai, converti pour chaque pays).
+  public var fallbackPrice: String {
+    switch self {
+    case .oneMonth: return "4,99 €"
+    case .twoMonths: return "9,99 €"
+    case .sixMonths: return "29,99 €"
+    }
+  }
+
+  public static func < (lhs: Self, rhs: Self) -> Bool { lhs.rawValue < rhs.rawValue }
+}

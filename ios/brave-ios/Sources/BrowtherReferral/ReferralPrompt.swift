@@ -168,7 +168,7 @@ public enum ReferralPrompt {
     // ⛔ Tant qu'on ne sait pas, on n'affiche rien (trois états, jamais deux).
     guard access.known, let status = input.status else { return nil }
     // ⭐ Absolu : qui a payé n'est plus jamais sollicité (§ 4).
-    if status.isSubscriberAtPeace { return nil }
+    if status.isPayerAtPeace { return nil }
     // Plus rien à demander à quelqu'un qui a tout gagné.
     if access.lifetime { return nil }
 
@@ -324,7 +324,7 @@ public enum ReferralPrompt {
     now: Date = Date()
   ) -> ReferralPromptState.Circuit? {
     guard let circuit = state.circuit, let status, access.known else { return nil }
-    if status.isSubscriberAtPeace || access.lifetime { return nil }
+    if status.isPayerAtPeace || access.lifetime { return nil }
     guard access.isPaused(now: now) else { return nil }
     return circuit
   }

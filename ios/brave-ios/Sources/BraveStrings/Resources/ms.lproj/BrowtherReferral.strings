@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "Terima kasih! Semua ciri tambahan Browther telah dibuka.";
 "billing.renews" = "Langganan anda diperbaharui secara automatik pada {date}, insya-Allah.";
 "billing.ends" = "Langganan anda tamat pada {date}, insya-Allah.";
+"billing.once.separator" = "atau sekali sahaja, tanpa langganan";
+"billing.once.cta" = "Saya sokong · {price} sekali";
+"billing.once.legalApple" = "Bayaran sekali melalui akaun Apple anda, tanpa pembaharuan.";
+"billing.coveredUntil" = "Terima kasih atas sokongan anda! Bulan-bulan ciri tambahan anda berlanjutan hingga {date}, insya-Allah. Tiada apa yang diperbaharui.";
 "thanks.title" = "Terima kasih atas sokongan anda!";
 "thanks.bodyActive" = "Semua ciri tambahan telah dibuka. Dengan limpah kurnia Allah, kemudian berkat anda, studio dev&din dapat terus menawarkan aplikasi percuma.";
 "thanks.bodyPending" = "Langganan anda sedang disediakan: ciri tambahan akan dibuka sebentar lagi.";
+"thanks.bodyOnce" = "Bulan-bulan ciri tambahan anda berlanjutan hingga {date}, insya-Allah. Dengan limpah kurnia Allah, kemudian berkat anda, studio dev&din dapat terus menawarkan aplikasi percuma.";
+"thanks.bodyOncePending" = "Sokongan anda sedang disediakan: bulan-bulan ciri tambahan anda akan tiba sebentar lagi.";
+"thanks.bodyOnceLate" = "Pembayaran anda berjaya, terima kasih! Pengesahan kadangkala mengambil masa beberapa minit: bulan-bulan anda ditambah sebaik sahaja ia tiba, insya-Allah.";
 "home.title" = "Rujukan";
 "home.listHead" = "Jemputan saya";
 "home.asReferee" = "Kod daripada orang tersayang";
@@ -284,6 +291,8 @@
 "invitations.rowInProgress.other" = "Kod anda sudah digunakan. {count} hari lagi dengan Browther sebagai pelayar lalai sebelum disahkan.";
 "invitations.rowInProgressUnknown.other" = "Kod anda sudah digunakan. Jemputan akan disahkan apabila orang tersayang anda mengekalkan Browther sebagai pelayar lalai selama {count} hari.";
 "invitations.milestone.other" = "Bonus +{count} bulan · peringkat {at} dicapai";
+"billing.once.months.other" = "{count} bulan";
+"billing.once.note.other" = "Satu bayaran sahaja: {count} bulan ditambah selepas apa yang sudah anda miliki, dan tiada apa yang diperbaharui.";
 "home.progress.other" = "**{count} jemputan disahkan** = {months} bulan. {left} lagi untuk bonus +{bonus} bulan.";
 "home.progressToLife.other" = "**{count} jemputan disahkan** = {months} bulan. {left} lagi untuk akses seumur hidup.";
 "home.progressLife.other" = "**{count} jemputan disahkan**: Browther 100% dibuka, seumur hidup, insya-Allah.";

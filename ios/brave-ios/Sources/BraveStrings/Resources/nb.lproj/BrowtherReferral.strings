@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "Takk! Alle ekstrafunksjonene i Browther er låst opp.";
 "billing.renews" = "Abonnementet ditt fornyes automatisk den {date}, in sha Allah.";
 "billing.ends" = "Abonnementet ditt avsluttes den {date}, in sha Allah.";
+"billing.once.separator" = "eller bare én gang, uten abonnement";
+"billing.once.cta" = "Jeg støtter · {price} én gang";
+"billing.once.legalApple" = "Engangsbetaling via Apple-kontoen din, uten fornyelse.";
+"billing.coveredUntil" = "Takk for støtten din! Månedene dine med ekstrafunksjoner varer frem til {date}, in sha Allah. Ingenting fornyes.";
 "thanks.title" = "Takk for støtten!";
 "thanks.bodyActive" = "Alle ekstrafunksjonene er låst opp. Ved Allahs nåde, og deretter takket være deg, kan studioet dev&din fortsette å tilby gratis apper.";
 "thanks.bodyPending" = "Abonnementet ditt settes opp: ekstrafunksjonene låses opp om et øyeblikk.";
+"thanks.bodyOnce" = "Månedene dine med ekstrafunksjoner varer frem til {date}, in sha Allah. Ved Allahs nåde, og deretter takket være deg, kan studioet dev&din fortsette å tilby gratis apper.";
+"thanks.bodyOncePending" = "Støtten din settes opp: månedene dine med ekstrafunksjoner kommer om et øyeblikk.";
+"thanks.bodyOnceLate" = "Betalingen din har gått gjennom, takk! Bekreftelsen tar noen ganger et par minutter: månedene dine legges til så snart den kommer, in sha Allah.";
 "home.title" = "Verving";
 "home.listHead" = "Invitasjonene mine";
 "home.asReferee" = "En kode fra noen du kjenner";
@@ -315,6 +322,10 @@
 "invitations.rowInProgressUnknown.other" = "Koden din er brukt. Invitasjonen bekreftes når personen har beholdt Browther som standardnettleser i {count} dager.";
 "invitations.milestone.one" = "+{count} bonusmåned · nivå {at} nådd";
 "invitations.milestone.other" = "+{count} bonusmåneder · nivå {at} nådd";
+"billing.once.months.one" = "{count} måned";
+"billing.once.months.other" = "{count} måneder";
+"billing.once.note.one" = "Én enkelt betaling: {count} måned legges til etter det du allerede har, og ingenting fornyes.";
+"billing.once.note.other" = "Én enkelt betaling: {count} måneder legges til etter det du allerede har, og ingenting fornyes.";
 "home.progress.one" = "**{count} bekreftet invitasjon** = {months} måneder. {left} til for +{bonus} bonusmåneder.";
 "home.progress.other" = "**{count} bekreftede invitasjoner** = {months} måneder. {left} til for +{bonus} bonusmåneder.";
 "home.progressToLife.one" = "**{count} bekreftet invitasjon** = {months} måneder. {left} til for tilgang for livet.";

@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "Teşekkürler! Browther'ın tüm ek özelliklerinin kilidi açık.";
 "billing.renews" = "Aboneliğiniz {date} tarihinde otomatik olarak yenilenecek, inşallah.";
 "billing.ends" = "Aboneliğiniz {date} tarihinde sona erecek, inşallah.";
+"billing.once.separator" = "ya da yalnızca bir kez, abonelik olmadan";
+"billing.once.cta" = "Destekliyorum · bir kez {price}";
+"billing.once.legalApple" = "Apple hesabınız üzerinden tek seferlik ödeme, yenileme yok.";
+"billing.coveredUntil" = "Desteğiniz için teşekkürler! Ek özellik aylarınız {date} tarihine kadar sürüyor, inşallah. Hiçbir şey yenilenmez.";
 "thanks.title" = "Desteğiniz için teşekkürler!";
 "thanks.bodyActive" = "Tüm ek özelliklerin kilidi açıldı. Önce Allah'ın lütfuyla, sonra sizin sayenizde dev&din stüdyosu ücretsiz uygulamalar sunmaya devam edebilir.";
 "thanks.bodyPending" = "Aboneliğiniz etkinleştiriliyor: ek özelliklerin kilidi birazdan açılacak.";
+"thanks.bodyOnce" = "Ek özellik aylarınız {date} tarihine kadar sürüyor, inşallah. Önce Allah'ın lütfuyla, sonra sizin sayenizde dev&din stüdyosu ücretsiz uygulamalar sunmaya devam edebilir.";
+"thanks.bodyOncePending" = "Desteğiniz etkinleştiriliyor: ek özellik aylarınız birazdan geliyor.";
+"thanks.bodyOnceLate" = "Ödemeniz gerçekleşti, teşekkürler! Onay bazen birkaç dakika sürebilir: onay gelir gelmez aylarınız eklenir, inşallah.";
 "home.title" = "Referans";
 "home.listHead" = "Davetlerim";
 "home.asReferee" = "Bir yakınınızın kodu";
@@ -315,6 +322,10 @@
 "invitations.rowInProgressUnknown.other" = "Kodunuz kullanıldı. Yakınınız Browther'ı {count} gün boyunca varsayılan tarayıcı olarak kullandığında davet onaylanacak.";
 "invitations.milestone.one" = "+{count} ay bonus · {at} davet eşiğine ulaşıldı";
 "invitations.milestone.other" = "+{count} ay bonus · {at} davet eşiğine ulaşıldı";
+"billing.once.months.one" = "{count} ay";
+"billing.once.months.other" = "{count} ay";
+"billing.once.note.one" = "Tek bir ödeme: mevcut sürenizin ardına {count} ay eklenir ve hiçbir şey yenilenmez.";
+"billing.once.note.other" = "Tek bir ödeme: mevcut sürenizin ardına {count} ay eklenir ve hiçbir şey yenilenmez.";
 "home.progress.one" = "**{count} onaylanan davet** = {months} ay. +{bonus} ay bonus için {left} davet daha.";
 "home.progress.other" = "**{count} onaylanan davet** = {months} ay. +{bonus} ay bonus için {left} davet daha.";
 "home.progressToLife.one" = "**{count} onaylanan davet** = {months} ay. Ömür boyu erişim için {left} davet daha.";

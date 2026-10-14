@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "감사해요! Browther의 모든 추가 기능이 해제되었어요.";
 "billing.renews" = "구독이 {date}에 자동으로 갱신돼요, 인샤알라.";
 "billing.ends" = "구독이 {date}에 종료돼요, 인샤알라.";
+"billing.once.separator" = "또는 한 번만, 구독 없이";
+"billing.once.cta" = "후원하기 · 1회 {price}";
+"billing.once.legalApple" = "Apple 계정으로 1회 결제, 갱신 없음.";
+"billing.coveredUntil" = "후원해 주셔서 감사해요! 추가 기능 이용 기간은 {date}까지예요, 인샤알라. 자동으로 갱신되지 않아요.";
 "thanks.title" = "후원해 주셔서 감사해요!";
 "thanks.bodyActive" = "모든 추가 기능이 해제되었어요. 알라의 은혜로, 그리고 당신 덕분에 dev&din 스튜디오는 계속 무료 앱을 제공할 수 있어요.";
 "thanks.bodyPending" = "구독을 설정하는 중이에요. 잠시 후 추가 기능이 해제돼요.";
+"thanks.bodyOnce" = "추가 기능 이용 기간은 {date}까지예요, 인샤알라. 알라의 은혜로, 그리고 당신 덕분에 dev&din 스튜디오는 계속 무료 앱을 제공할 수 있어요.";
+"thanks.bodyOncePending" = "후원을 반영하는 중이에요. 잠시 후 추가 기능 이용 기간이 더해져요.";
+"thanks.bodyOnceLate" = "결제가 완료되었어요. 감사해요! 확인에 몇 분 걸릴 때가 있어요. 확인되는 대로 이용 기간이 더해져요, 인샤알라.";
 "home.title" = "추천 프로그램";
 "home.listHead" = "내 초대";
 "home.asReferee" = "가까운 사람의 코드";
@@ -284,6 +291,8 @@
 "invitations.rowInProgress.other" = "내 코드가 사용되었어요. Browther를 기본 브라우저로 {count}일 더 쓰면 확정돼요.";
 "invitations.rowInProgressUnknown.other" = "내 코드가 사용되었어요. 초대한 분이 Browther를 기본 브라우저로 {count}일 동안 유지하면 초대가 확정돼요.";
 "invitations.milestone.other" = "보너스 +{count}개월 · 초대 {at}건 단계 달성";
+"billing.once.months.other" = "{count}개월";
+"billing.once.note.other" = "한 번만 결제: 지금 남은 기간 뒤에 {count}개월이 더해지고, 자동으로 갱신되지 않아요.";
 "home.progress.other" = "**확정된 초대 {count}건** = {months}개월. {left}건 더 하면 보너스 +{bonus}개월.";
 "home.progressToLife.other" = "**확정된 초대 {count}건** = {months}개월. {left}건 더 하면 평생 이용.";
 "home.progressLife.other" = "**확정된 초대 {count}건**: Browther가 평생 100% 해제되었어요, 인샤알라.";

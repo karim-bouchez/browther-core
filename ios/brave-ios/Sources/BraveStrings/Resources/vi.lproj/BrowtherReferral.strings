@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "Cảm ơn bạn! Tất cả tính năng bổ sung của Browther đã được mở khóa.";
 "billing.renews" = "Gói đăng ký của bạn tự động gia hạn vào {date}, in sha Allah.";
 "billing.ends" = "Gói đăng ký của bạn kết thúc vào {date}, in sha Allah.";
+"billing.once.separator" = "hoặc chỉ một lần, không cần đăng ký";
+"billing.once.cta" = "Tôi ủng hộ · {price} một lần";
+"billing.once.legalApple" = "Thanh toán một lần qua tài khoản Apple của bạn, không gia hạn.";
+"billing.coveredUntil" = "Cảm ơn bạn đã ủng hộ! Các tháng tính năng bổ sung của bạn kéo dài đến {date}, in sha Allah. Không có gì tự gia hạn.";
 "thanks.title" = "Cảm ơn bạn đã ủng hộ!";
 "thanks.bodyActive" = "Tất cả tính năng bổ sung đã được mở khóa. Nhờ ân điển của Allah, rồi nhờ bạn, studio dev&din có thể tiếp tục cung cấp ứng dụng miễn phí.";
 "thanks.bodyPending" = "Gói đăng ký của bạn đang được thiết lập: các tính năng bổ sung sẽ mở khóa trong giây lát.";
+"thanks.bodyOnce" = "Các tháng tính năng bổ sung của bạn kéo dài đến {date}, in sha Allah. Nhờ ân điển của Allah, rồi nhờ bạn, studio dev&din có thể tiếp tục cung cấp ứng dụng miễn phí.";
+"thanks.bodyOncePending" = "Sự ủng hộ của bạn đang được thiết lập: các tháng tính năng bổ sung sẽ đến trong giây lát.";
+"thanks.bodyOnceLate" = "Thanh toán của bạn đã thành công, cảm ơn bạn! Việc xác nhận đôi khi mất vài phút: các tháng của bạn sẽ được cộng thêm ngay khi xác nhận đến, in sha Allah.";
 "home.title" = "Chương trình giới thiệu";
 "home.listHead" = "Lời mời của tôi";
 "home.asReferee" = "Mã từ người thân";
@@ -284,6 +291,8 @@
 "invitations.rowInProgress.other" = "Mã của bạn đã được dùng. Còn {count} ngày dùng Browther làm trình duyệt mặc định nữa là được xác nhận.";
 "invitations.rowInProgressUnknown.other" = "Mã của bạn đã được dùng. Lời mời sẽ được xác nhận khi người thân của bạn giữ Browther làm trình duyệt mặc định trong {count} ngày.";
 "invitations.milestone.other" = "+{count} tháng thưởng · đạt mốc {at} lời mời";
+"billing.once.months.other" = "{count} tháng";
+"billing.once.note.other" = "Chỉ một lần thanh toán: {count} tháng được cộng tiếp sau thời gian bạn đang có, và không có gì tự gia hạn.";
 "home.progress.other" = "**{count} lời mời đã xác nhận** = {months} tháng. Thêm {left} lời mời nữa để nhận +{bonus} tháng thưởng.";
 "home.progressToLife.other" = "**{count} lời mời đã xác nhận** = {months} tháng. Thêm {left} lời mời nữa để được dùng trọn đời.";
 "home.progressLife.other" = "**{count} lời mời đã xác nhận**: Browther được mở khóa 100%, trọn đời, in sha Allah.";

@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "Gràcies! Totes les funcions addicionals de Browther estan desbloquejades.";
 "billing.renews" = "La teva subscripció es renova automàticament el {date}, in sha Allah.";
 "billing.ends" = "La teva subscripció s'acaba el {date}, in sha Allah.";
+"billing.once.separator" = "o només una vegada, sense subscripció";
+"billing.once.cta" = "Dono suport · {price} una vegada";
+"billing.once.legalApple" = "Pagament únic amb el teu compte d'Apple, sense renovació.";
+"billing.coveredUntil" = "Gràcies pel teu suport! Els teus mesos de funcions addicionals duren fins al {date}, in sha Allah. No es renova res.";
 "thanks.title" = "Gràcies pel teu suport!";
 "thanks.bodyActive" = "Totes les funcions addicionals estan desbloquejades. Gràcies a Allah, i després a tu, l'estudi dev&din pot continuar oferint apps gratuïtes.";
 "thanks.bodyPending" = "La teva subscripció s'està activant: les funcions addicionals es desbloquejaran en un moment.";
+"thanks.bodyOnce" = "Els teus mesos de funcions addicionals duren fins al {date}, in sha Allah. Gràcies a Allah, i després a tu, l'estudi dev&din pot continuar oferint apps gratuïtes.";
+"thanks.bodyOncePending" = "El teu suport s'està activant: els teus mesos de funcions addicionals arriben en un moment.";
+"thanks.bodyOnceLate" = "El teu pagament s'ha fet correctament, gràcies! La confirmació de vegades triga uns minuts: els teus mesos s'afegeixen tan bon punt arribi, in sha Allah.";
 "home.title" = "Apadrinament";
 "home.listHead" = "Les meves invitacions";
 "home.asReferee" = "El codi d'algú proper";
@@ -315,6 +322,10 @@
 "invitations.rowInProgressUnknown.other" = "S'ha fet servir el teu codi. La invitació es validarà quan la persona hagi mantingut Browther com a navegador per defecte durant {count} dies.";
 "invitations.milestone.one" = "+{count} mes de bonificació · nivell {at} assolit";
 "invitations.milestone.other" = "+{count} mesos de bonificació · nivell {at} assolit";
+"billing.once.months.one" = "{count} mes";
+"billing.once.months.other" = "{count} mesos";
+"billing.once.note.one" = "Un sol pagament: {count} mes que s'afegeix després del que ja tens, i no es renova res.";
+"billing.once.note.other" = "Un sol pagament: {count} mesos que s'afegeixen després del que ja tens, i no es renova res.";
 "home.progress.one" = "**{count} invitació validada** = {months} mesos. {left} més per a +{bonus} mesos de bonificació.";
 "home.progress.other" = "**{count} invitacions validades** = {months} mesos. {left} més per a +{bonus} mesos de bonificació.";
 "home.progressToLife.one" = "**{count} invitació validada** = {months} mesos. {left} més per a l'accés de per vida.";

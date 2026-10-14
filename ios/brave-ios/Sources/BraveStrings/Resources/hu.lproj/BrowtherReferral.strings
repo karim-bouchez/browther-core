@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "Köszönjük! A Browther összes kiegészítő funkciója fel van oldva.";
 "billing.renews" = "Az előfizetése {date} napján automatikusan megújul, insallah.";
 "billing.ends" = "Az előfizetése {date} napján megszűnik, insallah.";
+"billing.once.separator" = "vagy csak egyszer, előfizetés nélkül";
+"billing.once.cta" = "Támogatom · egyszeri {price}";
+"billing.once.legalApple" = "Egyszeri fizetés az Apple-fiókján keresztül, megújítás nélkül.";
+"billing.coveredUntil" = "Köszönjük a támogatását! A kiegészítő funkciók hónapjai {date} napjáig tartanak, insallah. Semmi sem újul meg.";
 "thanks.title" = "Köszönjük a támogatását!";
 "thanks.bodyActive" = "Minden kiegészítő funkció fel van oldva. Allah kegyelméből, majd Önnek köszönhetően a dev&din stúdió továbbra is ingyenes alkalmazásokat kínálhat.";
 "thanks.bodyPending" = "Az előfizetése beállítása folyamatban: a kiegészítő funkciók egy pillanat múlva feloldódnak.";
+"thanks.bodyOnce" = "A kiegészítő funkciók hónapjai {date} napjáig tartanak, insallah. Allah kegyelméből, majd Önnek köszönhetően a dev&din stúdió továbbra is ingyenes alkalmazásokat kínálhat.";
+"thanks.bodyOncePending" = "A támogatása beállítása folyamatban: a kiegészítő funkciók hónapjai egy pillanat múlva megérkeznek.";
+"thanks.bodyOnceLate" = "A fizetése sikeres volt, köszönjük! A visszaigazolás néha pár percig tart: a hónapjai jóváíródnak, amint megérkezik, insallah.";
 "home.title" = "Ajánlói program";
 "home.listHead" = "Meghívásaim";
 "home.asReferee" = "Egy szerette kódja";
@@ -315,6 +322,10 @@
 "invitations.rowInProgressUnknown.other" = "A kódját felhasználták. A meghívás akkor kap megerősítést, ha a Browther {count} napig alapértelmezett böngésző marad a szerette készülékén.";
 "invitations.milestone.one" = "+{count} bónuszhónap · elért szint: {at}";
 "invitations.milestone.other" = "+{count} bónuszhónap · elért szint: {at}";
+"billing.once.months.one" = "{count} hónap";
+"billing.once.months.other" = "{count} hónap";
+"billing.once.note.one" = "Egyetlen fizetés: {count} hónap hozzáadódik ahhoz, ami már megvan, és semmi sem újul meg.";
+"billing.once.note.other" = "Egyetlen fizetés: {count} hónap hozzáadódik ahhoz, ami már megvan, és semmi sem újul meg.";
 "home.progress.one" = "**{count} megerősített meghívás** = {months} hónap. Még {left}, és +{bonus} bónuszhónap jár.";
 "home.progress.other" = "**{count} megerősített meghívás** = {months} hónap. Még {left}, és +{bonus} bónuszhónap jár.";
 "home.progressToLife.one" = "**{count} megerősített meghívás** = {months} hónap. Még {left}, és örökös hozzáférés jár.";

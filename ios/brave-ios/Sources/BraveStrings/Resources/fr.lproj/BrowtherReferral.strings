@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "Merci ! Toutes les fonctionnalités supplémentaires de Browther sont débloquées.";
 "billing.renews" = "Ton abonnement se renouvelle automatiquement le {date}, in cha Allah.";
 "billing.ends" = "Ton abonnement s'arrête le {date}, in cha Allah.";
+"billing.once.separator" = "ou une seule fois, sans abonnement";
+"billing.once.cta" = "Je soutiens · {price} une fois";
+"billing.once.legalApple" = "Paiement unique via ton compte Apple, sans renouvellement.";
+"billing.coveredUntil" = "Merci pour ton soutien ! Tes mois de fonctionnalités supplémentaires courent jusqu'au {date}, in cha Allah. Rien ne se renouvelle.";
 "thanks.title" = "Merci pour ton soutien !";
 "thanks.bodyActive" = "Toutes les fonctionnalités supplémentaires sont débloquées. Grâce à Allah, puis à toi, le studio dev&din peut continuer à proposer des applications gratuites.";
 "thanks.bodyPending" = "Ton abonnement se met en place : les fonctionnalités supplémentaires se débloquent dans un instant.";
+"thanks.bodyOnce" = "Tes mois de fonctionnalités supplémentaires courent jusqu'au {date}, in cha Allah. Grâce à Allah, puis à toi, le studio dev&din peut continuer à proposer des applications gratuites.";
+"thanks.bodyOncePending" = "Ton soutien se met en place : tes mois de fonctionnalités supplémentaires arrivent dans un instant.";
+"thanks.bodyOnceLate" = "Ton paiement est bien passé, merci ! La confirmation met parfois quelques minutes : tes mois s'ajoutent dès qu'elle arrive, in cha Allah.";
 "home.title" = "Parrainage";
 "home.listHead" = "Mes invitations";
 "home.asReferee" = "Le code d'un proche";
@@ -315,6 +322,10 @@
 "invitations.rowInProgressUnknown.other" = "Ton code a été utilisé. L'invitation sera validée quand ton proche aura gardé Browther comme navigateur par défaut pendant {count} jours.";
 "invitations.milestone.one" = "+{count} mois de bonus · palier {at} atteint";
 "invitations.milestone.other" = "+{count} mois de bonus · palier {at} atteint";
+"billing.once.months.one" = "{count} mois";
+"billing.once.months.other" = "{count} mois";
+"billing.once.note.one" = "Un seul paiement : {count} mois qui s'ajoute à la suite de ce que tu as déjà, et rien ne se renouvelle.";
+"billing.once.note.other" = "Un seul paiement : {count} mois qui s'ajoutent à la suite de ce que tu as déjà, et rien ne se renouvelle.";
 "home.progress.one" = "**{count} invitation validée** = {months} mois. Encore {left} pour +{bonus} mois de bonus.";
 "home.progress.other" = "**{count} invitations validées** = {months} mois. Encore {left} pour +{bonus} mois de bonus.";
 "home.progressToLife.one" = "**{count} invitation validée** = {months} mois. Encore {left} pour l'accès à vie.";

@@ -36,6 +36,8 @@ import UIKit
 /// normal. Les achats se recettent en TestFlight, avec un testeur Sandbox.
 /// Le paquet RevenueCat, nommé sans ambiguïté pour le reste du module.
 typealias RevenueCatPackage = RevenueCat.Package
+/// Un produit du store lu par identifiant (les achats « une seule fois »).
+typealias RevenueCatProduct = RevenueCat.StoreProduct
 
 @MainActor
 final class ReferralPurchases {
@@ -156,6 +158,44 @@ final class ReferralPurchases {
     }
   }
 
+  // MARK: Le soutien ponctuel (§ 12.43)
+
+  /// Les trois achats « une seule fois », lus par IDENTIFIANT. 🔴 ⛔ Hors offering
+  /// et entitlement : RevenueCat donnerait à un achat non renouvelable un accès
+  /// SANS fin — ce sont les mois crédités par le service qui ouvrent.
+  func supportProducts() async -> [ReferralSupportOnce: StoreProduct] {
+    guard configuredFor != nil else { return [:] }
+    let products = await Purchases.shared.products(ReferralSupportOnce.allCases.map(\.productID))
+    var found: [ReferralSupportOnce: StoreProduct] = [:]
+    for product in products {
+      if let item = ReferralSupportOnce.allCases.first(where: { $0.productID == product.productIdentifier }) {
+        found[item] = product
+      }
+    }
+    return found
+  }
+
+  enum SupportOutcome {
+    case purchased
+    /// ⚠️ Un abandon n'est pas un échec.
+    case cancelled
+    case failed
+  }
+
+  /// ⚠️ L'achat abouti n'ouvre RIEN en local (aucun entitlement) : le webhook
+  /// RevenueCat → service crédite les mois, que l'app relit.
+  func purchaseSupport(_ product: StoreProduct) async -> SupportOutcome {
+    do {
+      let result = try await Purchases.shared.purchase(product: product)
+      if result.userCancelled { return .cancelled }
+      return result.transaction != nil ? .purchased : .failed
+    } catch let error as ErrorCode where error == .purchaseCancelledError {
+      return .cancelled
+    } catch {
+      return .failed
+    }
+  }
+
   /// « Restaurer mes achats » — obligation Apple (§ 8).
   func restore() async -> CustomerInfo? {
     try? await Purchases.shared.restorePurchases()
@@ -221,4 +261,20 @@ struct ReferralStorePrices: Equatable {
       showsFreeMonths: cheaper && (twelve - year.price) >= month.price * Decimal(ReferralPricing.yearlyFreeMonths) - 0.05
     )
   }
+}
+
+/// Les prix des trois achats « une seule fois », tels que le STORE les rend
+/// (Apple convertit par pays) — `ReferralSupportOnce.fallbackPrice` en repli.
+struct ReferralSupportPrices: Equatable {
+  var byItem: [ReferralSupportOnce: String]
+
+  init(products: [ReferralSupportOnce: RevenueCatProduct]) {
+    var prices: [ReferralSupportOnce: String] = [:]
+    for item in ReferralSupportOnce.allCases {
+      prices[item] = products[item]?.localizedPriceString ?? item.fallbackPrice
+    }
+    byItem = prices
+  }
+
+  func price(_ item: ReferralSupportOnce) -> String { byItem[item] ?? item.fallbackPrice }
 }

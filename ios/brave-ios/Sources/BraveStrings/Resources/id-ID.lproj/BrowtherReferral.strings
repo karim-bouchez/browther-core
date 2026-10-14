@@ -163,9 +163,16 @@
 "billing.alreadyBody" = "Terima kasih! Semua fitur tambahan Browther sudah terbuka.";
 "billing.renews" = "Langganan Anda diperpanjang otomatis pada {date}, insya Allah.";
 "billing.ends" = "Langganan Anda berakhir pada {date}, insya Allah.";
+"billing.once.separator" = "atau sekali saja, tanpa langganan";
+"billing.once.cta" = "Saya dukung · {price} sekali";
+"billing.once.legalApple" = "Pembayaran sekali melalui akun Apple Anda, tanpa perpanjangan.";
+"billing.coveredUntil" = "Terima kasih atas dukungan Anda! Bulan-bulan fitur tambahan Anda berlaku hingga {date}, insya Allah. Tidak ada yang diperpanjang.";
 "thanks.title" = "Terima kasih atas dukungan Anda!";
 "thanks.bodyActive" = "Semua fitur tambahan sudah terbuka. Berkat karunia Allah, lalu berkat Anda, studio dev&din bisa terus menghadirkan aplikasi gratis.";
 "thanks.bodyPending" = "Langganan Anda sedang disiapkan: fitur tambahan akan terbuka sebentar lagi.";
+"thanks.bodyOnce" = "Bulan-bulan fitur tambahan Anda berlaku hingga {date}, insya Allah. Berkat karunia Allah, lalu berkat Anda, studio dev&din bisa terus menghadirkan aplikasi gratis.";
+"thanks.bodyOncePending" = "Dukungan Anda sedang disiapkan: bulan-bulan fitur tambahan Anda akan tiba sebentar lagi.";
+"thanks.bodyOnceLate" = "Pembayaran Anda berhasil, terima kasih! Konfirmasi kadang butuh beberapa menit: bulan-bulan Anda ditambahkan begitu konfirmasi tiba, insya Allah.";
 "home.title" = "Referal";
 "home.listHead" = "Undangan saya";
 "home.asReferee" = "Kode dari orang terdekat";
@@ -284,6 +291,8 @@
 "invitations.rowInProgress.other" = "Kode Anda sudah dipakai. {count} hari lagi dengan Browther sebagai browser default sebelum tervalidasi.";
 "invitations.rowInProgressUnknown.other" = "Kode Anda sudah dipakai. Undangan akan tervalidasi setelah orang terdekat Anda memakai Browther sebagai browser default selama {count} hari.";
 "invitations.milestone.other" = "Bonus +{count} bulan · tingkat {at} tercapai";
+"billing.once.months.other" = "{count} bulan";
+"billing.once.note.other" = "Satu kali pembayaran: {count} bulan ditambahkan setelah yang sudah Anda miliki, dan tidak ada yang diperpanjang.";
 "home.progress.other" = "**{count} undangan tervalidasi** = {months} bulan. {left} lagi untuk bonus +{bonus} bulan.";
 "home.progressToLife.other" = "**{count} undangan tervalidasi** = {months} bulan. {left} lagi untuk akses seumur hidup.";
 "home.progressLife.other" = "**{count} undangan tervalidasi**: Browther 100% terbuka, seumur hidup, insya Allah.";

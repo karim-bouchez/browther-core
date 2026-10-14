@@ -152,7 +152,7 @@ public enum ReferralSharePrompt {
     }
 
     // ⚠️ Un abonné en paix n'a pas de rappel à venir : son échéance se renouvelle.
-    if !access.lifetime && !status.isSubscriberAtPeace,
+    if !access.lifetime && !status.isPayerAtPeace,
       let left = access.daysLeft(now: now),
       left <= (ReferralPrompt.reminderStages.max() ?? 10) + quietDays
     {
