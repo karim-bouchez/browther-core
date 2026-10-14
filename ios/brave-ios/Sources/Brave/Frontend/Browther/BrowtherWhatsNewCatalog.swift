@@ -38,6 +38,27 @@ import Foundation
 enum BrowtherWhatsNewCatalog {
   static let releases: [BrowtherSurfacesRules.WhatsNewRelease] = [
     .init(
+      // Release 2026.10.14 (build 13) : le soutien « une seule fois » dans
+      // l'onglet Soutenir (trois achats non renouvelables, `private/docs/
+      // PARRAINAGE.md` § 14). ⚠️ Pas annoncés, bien qu'embarqués : le partage
+      // proposé au moment de mérite (§ 13), le toast à deux boutons d'une
+      // fonctionnalité en pause, `app_active` (invisible) — jamais vus sur
+      // iPhone avant cette release.
+      id: "2026-10-14",
+      date: "2026-10-14",
+      lines: [
+        "fr": [
+          "Pour soutenir Browther, il fallait prendre un abonnement. L’onglet Soutenir propose maintenant aussi un paiement unique de 1, 2 ou 6 mois, qui ne se renouvelle pas.",
+        ],
+        "en": [
+          "Supporting Browther meant taking a subscription. The Support tab now also offers a one-time payment for 1, 2 or 6 months, which never renews.",
+        ],
+        "ar": [
+          "كان دعم Browther يتطلّب اشتراكًا. صار تبويب الدعم يتيح أيضًا دفعة واحدة لشهر أو شهرين أو ستة أشهر، لا تتجدّد.",
+        ],
+      ]
+    ),
+    .init(
       // Release 2026.10.8 : suppression du compte dev&din dans l'app (Apple
       // 5.1.1(v) — la 2026.9.30 permettait de le créer sans pouvoir le
       // supprimer), Sawtunaa qui bascule sans recharger et sa pause de cinq
