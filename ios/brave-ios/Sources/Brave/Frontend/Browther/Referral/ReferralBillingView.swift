@@ -117,18 +117,14 @@ struct ReferralBillingBody: View {
           sub: Strings.BrowtherReferral.billingMonthSub
         )
       }
+      // ⛔ Chaque mention sous ce qu'elle décrit : le renouvellement automatique
+      // sous les deux abonnements, « sans renouvellement » sous les tuiles.
+      // Une mention unique sous le tout se lisait comme décrivant les achats
+      // ponctuels (PARRAINAGE.md, matrice « À porter » ligne 6).
+      legalNote(Strings.BrowtherReferral.billingLegal)
       if Self.showsSupportOnce(controller, preview: preview) {
         supportOnce
       }
-      Text(
-        controller.supportChoice != nil
-          ? Strings.BrowtherReferral.billingOnceLegalApple
-          : Strings.BrowtherReferral.billingLegal
-      )
-        .font(.footnote)
-        .foregroundStyle(.secondary)
-        .multilineTextAlignment(.center)
-        .fixedSize(horizontal: false, vertical: true)
       HStack(spacing: 8) {
         legalLink(Strings.BrowtherReferral.billingTerms, page: "terms")
         Text("·").font(.footnote).foregroundStyle(.tertiary)
@@ -196,7 +192,16 @@ struct ReferralBillingBody: View {
           .multilineTextAlignment(.center)
           .fixedSize(horizontal: false, vertical: true)
       }
+      legalNote(Strings.BrowtherReferral.billingOnceLegalApple)
     }
+  }
+
+  private func legalNote(_ text: String) -> some View {
+    Text(text)
+      .font(.footnote)
+      .foregroundStyle(.secondary)
+      .multilineTextAlignment(.center)
+      .fixedSize(horizontal: false, vertical: true)
   }
 
   private func supportTile(_ item: ReferralSupportOnce, price: String) -> some View {
